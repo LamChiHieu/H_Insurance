@@ -1,15 +1,24 @@
 var express = require('express');
 var app = express();
-var bodyparser = require('body-parser');
-app.listen(3000);
+
+require('dotenv').config();
+
+var path = require('path');
+
+app.listen(process.env.PORT);
 
 //middleware: parse application/x-www-form-urlencoded: 
-app.use(bodyParser.urlencoded({ extended: false }));
+var bodyparser = require('body-parser');
+app.use(bodyparser.urlencoded({ extended: false }))
 
 //add view engine
 app.set("view engine", "ejs");
 
+//load assets
+app.use(express.static(path.resolve(__dirname,"assets")))
 
-app.get('/', function(req,res){
-    res.send('Home123')
-});
+//routes
+var Router = require('./server/routes/router');
+app.use('/', Router);
+
+//roues to Admin Page:
