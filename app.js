@@ -1,11 +1,10 @@
 var express = require('express');
 var app = express();
-
 require('dotenv').config();
-
 var path = require('path');
 
-app.listen(process.env.PORT);
+//database:
+var connection = require('./server/database/connection');
 
 //middleware: parse application/x-www-form-urlencoded: 
 var bodyparser = require('body-parser');
@@ -21,4 +20,4 @@ app.use(express.static(path.resolve(__dirname,"assets")))
 var Router = require('./server/routes/router');
 app.use('/', Router);
 
-//roues to Admin Page:
+app.listen(process.env.PORT);

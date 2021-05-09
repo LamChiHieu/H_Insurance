@@ -1,22 +1,12 @@
 var express = require('express');
 var router = express.Router();
 
-//Render to these Pages:
-router.get('/', function(req, res){
-    res.render('index');
-})
+var service = require('../services/render')
 
-router.get('/login', function(req, res){
-    res.render('login');
-});
-
-router.get('/add_user', function(req, res){
-    res.render('user/add_user');
-});
-
-router.get('/list_user', function(req, res){
-    res.render('user/list_user');
-});
+//Method Get
+router.get('/', service.index);
+router.get('/add_user', service.add_user);
+router.get('/update_user', service.update_user);
 
 
 module.exports = router;
