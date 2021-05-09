@@ -1,23 +1,24 @@
-var express = require('express');
-var app = express();
-require('dotenv').config();
-var path = require('path');
+var express = require('express'); //Tạo server
+var app = express(); //Tạo app từ server
+require('dotenv').config(); // '.env' file môi trường của hệ thống
+var path = require('path'); // path: đường dẫn của hệ thống
 
-//database:
+//kế nối cơ sở dữ liệu
 var connection = require('./server/database/connection');
 
-//middleware: parse application/x-www-form-urlencoded: 
+//middleware:
 var bodyparser = require('body-parser');
 app.use(bodyparser.urlencoded({ extended: false }))
 
-//add view engine
+//view engine render html
 app.set("view engine", "ejs");
 
-//load assets
+//tạo đường dẫn tới file
 app.use(express.static(path.resolve(__dirname,"assets")))
 
-//routes
+//Link tới file router
 var Router = require('./server/routes/router');
 app.use('/', Router);
 
+//Mở port
 app.listen(process.env.PORT);
